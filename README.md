@@ -4,7 +4,7 @@
 
 ## python-deftest
 适用于 unittest 自动化测试的可视化报告
-
+![演示图片](https://github.com/wangtao2213405054/python-deftest/blob/master/demonstration.gif)
 
 ## 如何使用
 ```angular2html
