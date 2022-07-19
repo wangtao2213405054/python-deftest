@@ -30,6 +30,7 @@ if __name__ == '__main__':
     obj = MainReport(discover)
     obj.run()
 ```
+
 ## 用例编写
 ```angular2html
 用例编写可参考 /test/test_case.py 文件
@@ -52,6 +53,7 @@ if __name__ == '__main__':
 在函数中添加注释即可, 如没有注释则取默认值。(需要注意的是:冒号后方需要添加一个空格, 否则无法识别)
 ```
 ---
+
 ## API 说明
 ```angular2html
 项目中内置了 logging 的配置, 但是默认是关闭状态, 如果需要请在调用run方法时传递 obj.run(islog=True) 即可
