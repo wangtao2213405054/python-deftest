@@ -440,4 +440,4 @@ class MainReport(RewriteTestResult):
 if __name__ == '__main__':
     discover = unittest.defaultTestLoader.discover(r'test', pattern='t*.py')
     obj = MainReport(discover)
-    obj.run()
+    obj.run(islog=True)

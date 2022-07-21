@@ -1,0 +1,4 @@
+## ignore this file ##
+/target/
+.idea
+.__pycache__
