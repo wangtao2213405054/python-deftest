@@ -7,7 +7,6 @@
 适用于 unittest 自动化测试的可视化报告
 
 ![演示图片](https://report-1254275723.cos.ap-beijing.myqcloud.com/python-deftest/demonstration.gif)
-![演示图片](http://rfd7fs9ug.hn-bkt.clouddn.com/demonstration.gif)
 ---
 
 ## 功能介绍
