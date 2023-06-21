@@ -23,7 +23,7 @@ class CaseResult(unittest.case.TestCase):
         super(CaseResult, self).__init__()
         self.test = test  # 确保为测试用例
 
-        self.name = self.get_case_content(test, 'title')  # 测试用例名称
+        self.name = self.get_case_content(test, 'title') or '暂无标题'  # 测试用例名称
         self.case_path = test.id()  # 测试用例路径
         self.describe = self.get_case_content(test, 'describe')  # 测试用例描述
         self.docs = test._testMethodDoc  # 测试用例备注信息
@@ -129,6 +129,7 @@ class CaseResult(unittest.case.TestCase):
         :return:
         """
         case_content = ''
+        docs = docs or ''
 
         pattern = re.compile(fr'{content}: (.+)')
         content_data = re.findall(pattern, docs)
@@ -145,7 +146,7 @@ class CaseResult(unittest.case.TestCase):
         :return:
         """
 
-        case_docs = test._testMethodDoc
+        case_docs = test._testMethodDoc or ''
         case_level = 2  # 默认二级优先级
         pattern = re.compile(r'level: (\d+)')
         level = re.findall(pattern, case_docs)
@@ -189,7 +190,7 @@ class RewriteTestResult(unittest.TestResult):
         self.know_exceptions = {}  # 已知异常字典, 用于通过异常名称映射失败原因
 
     @property
-    def summary(self):
+    def results(self):
         """
         组装结果概要
         :return:
@@ -261,7 +262,7 @@ class RewriteTestResult(unittest.TestResult):
 
         # 开始执行用例
         unittest.TestResult.startTest(self, test)
-        # logging.info(f'—————————— 开始执行用例: {self.result.name} ——————————')
+        logging.info(f'—————————— 开始执行用例: {self.result.name} ——————————')
 
     def stopTest(self, test: unittest.case.TestCase) -> None:
         """
@@ -270,7 +271,7 @@ class RewriteTestResult(unittest.TestResult):
         :param test: unittest.case.TestCase 对象
         :return:
         """
-        # logging.info(f'—————————— 结束执行用例: {self.result.name} ——————————')
+        logging.info(f'—————————— 结束执行用例: {self.result.name} ——————————')
 
         # 获取用例对象
         self.result.end_time = round(time.time(), 6)
@@ -410,8 +411,8 @@ class MainReport(RewriteTestResult):
         self.report_path = os.path.abspath(report_path)
 
         runner = unittest.TextTestRunner(resultclass=RewriteTestResult)
-        result = runner.run(self.suites)
-        all_data = result.summary
+        result: RewriteTestResult = runner.run(self.suites)
+        all_data = result.results
 
         template_path = os.path.join(os.path.dirname(__file__), 'conf', 'template')
         template_path = os.path.abspath(template_path)
